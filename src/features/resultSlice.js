@@ -9,10 +9,19 @@ export const resultSlice = createSlice({
     name: "result",
     initialState,
     reducers: {
-        setScore: () => { },
-        addAttemptedQuizId: () => { }
+        setScore: (state, action) => {
+            state.score = action.payload
+        },
+        addAttemptedQuizId: (state, action) => {
+            const quizId = action.payload
+
+            if (!state.attemptedQuizIds.includes(quizId)) {
+                state.attemptedQuizIds.push(quizId)
+            }
+        },
+        resetResult: () => initialState
     }
 })
 
-export const { addAttemptedQuizId, setScore } = resultSlice.actions
+export const { addAttemptedQuizId, setScore, resetResult } = resultSlice.actions
 export default resultSlice;

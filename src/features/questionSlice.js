@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     questions: [],
-    selectedAnswer: {},
+    selectedAnswers: {},
     currentIndex: 0
 }
 
@@ -10,10 +10,24 @@ export const questionSlice = createSlice({
     name: "quiz",
     initialState,
     reducers: {
-        loadQuestions: () => { },
-        selectAnswer: () => { },
-        nextQuestion: () => { },
-        resetQuiz: () => { }
+        loadQuestions: (state, action) => {
+            state.questions.push(action.payload);
+        },
+        selectAnswer: (state, action) => {
+            const { answer } = action.payload;
+            const index = state.currentIndex;
+            state.selectedAnswers[index] = answer;
+        },
+        nextQuestion: (state) => {
+            if (state.currentIndex < state.questions.length - 1) {
+                state.currentIndex += 1;
+            }
+        },
+        resetQuiz: (state) => {
+            state.selectedAnswers = {};
+            state.currentIndex = 0
+        }
+        // resetQuiz: () => initialState
     }
 })
 

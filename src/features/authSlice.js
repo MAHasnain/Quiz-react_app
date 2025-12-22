@@ -9,9 +9,18 @@ export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        register: () => { },
-        login: () => { },
-        logout: () => { }
+        register: (state, action) => {
+            state.user = action.payload;
+            state.isAuthenticated = true;
+         },
+        login: (state, action) => {
+            state.user = action.payload;
+            state.isAuthenticated = true;
+        },
+        logout: (state) => { 
+            state.user = null;
+            state.isAuthenticated = true;
+        }
     }
 })
 
