@@ -1,4 +1,4 @@
-import config from "../config/config.js";
+import config from "../Config/config.js";
 const { VITE_SUPABASE_URL, VITE_SUPABASE_KEY } = config;
 
 import { createClient } from '@supabase/supabase-js'
@@ -7,10 +7,10 @@ import { createClient } from '@supabase/supabase-js'
 const supabase = createClient(VITE_SUPABASE_URL, VITE_SUPABASE_KEY);
 
 // RESULTS DB methods
-export const fetchResults = async () => {
+export const getUserResults = async (userId) => {
     const { data, error } = await supabase
         .from('results')
-        .select()
+        .select(userId)
 
     if (error) {
         console.error(error);
@@ -21,3 +21,38 @@ export const fetchResults = async () => {
     return data;
 }
 
+export const checkQuizAttempt = async (userId, quizId) => {
+    const { data, error } = await supabase
+        .from('results')
+        .select()
+        .eq("userId", userId)
+        .eq("quizId", quizId)
+        .single()
+
+    if (error && error.code === "PGRST116") {
+        return false;
+    }
+
+    if (error) {
+        console.error(error);
+    }
+
+    console.log(data);
+    return true;
+
+}
+
+export const saveQuizResult = async (quizResult) => {
+    const { data, error } = await supabase
+        .from('results')
+        .insert(quizResult)
+        .select()
+
+    if (error) {
+        console.error(error);
+    }
+
+    console.log(data);
+    return data;
+
+}

@@ -1,6 +1,6 @@
 // DB methods 
 
-import config from "../config/config.js";
+import config from "../Config/config.js";
 const { VITE_SUPABASE_URL, VITE_SUPABASE_KEY } = config;
 
 import { createClient } from '@supabase/supabase-js'
@@ -10,8 +10,8 @@ import { fetchResults, getCurrentUser } from "./index.js";
 const supabase = createClient(VITE_SUPABASE_URL, VITE_SUPABASE_KEY);
 
 // QUIZZES DB methods
-export const fetchQuizzes = async () => {
-    
+export const getAllQuizzes = async () => {
+
     const currentUser = await getCurrentUser();
     currentUser.id;
     const results = await fetchResults();
@@ -30,3 +30,17 @@ export const fetchQuizzes = async () => {
     return data;
 }
 
+export const getCompletedQuizIds = async (userId) => {
+    const { data, error } = await supabase
+        .from('quizzes')
+        // .eq('id', userId)
+        .select(userId)
+
+    if (error) {
+        console.error(error);
+        return error;
+    }
+
+    console.log(data);
+    return data;
+}
