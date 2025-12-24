@@ -1,17 +1,21 @@
 import React from "react";
 import { Home } from "./components";
 import { Login, Register, Question, Dashboard, Result } from "./Pages";
+import { BrowserRouter, Route, Routes } from "react-router";
+import { Layout } from "./components/";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/question" element={<Question />} />
-        <Route path="/result" element={<Result />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/question" element={<Question />} />
+          <Route path="/result" element={<Result />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
