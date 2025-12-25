@@ -21,7 +21,7 @@ export const getUserResults = async (userId) => {
     return data;
 }
 
-export const checkQuizAttempt = async (userId, quizId) => {
+export const checkQuizAttempt = async (userId, quizId) => {  /// check quiz attempt 
     const { data, error } = await supabase
         .from('results')
         .select()
