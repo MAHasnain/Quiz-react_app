@@ -178,7 +178,7 @@ const Footer = () => {
           }}
         >
           <Typography variant="body2" sx={{ opacity: 0.9 }}>
-            © {new Date().getFullYear()} QuizMaster. All rights reserved.
+            © {new Date().getFullYear()} Quizora. All rights reserved.
           </Typography>
           <Typography variant="body2" sx={{ opacity: 0.9 }}>
             Made with ❤️ in Pakistan
