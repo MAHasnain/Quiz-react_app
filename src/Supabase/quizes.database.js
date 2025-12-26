@@ -4,7 +4,7 @@ import config from "../Config/config.js";
 const { VITE_SUPABASE_URL, VITE_SUPABASE_KEY } = config;
 
 import { createClient } from '@supabase/supabase-js'
-import { fetchResults, getCurrentUser } from "./index.js";
+import { getCurrentUser, getUserResults } from "./index.js";
 
 // Create a single supabase client for interacting with your database
 const supabase = createClient(VITE_SUPABASE_URL, VITE_SUPABASE_KEY);
@@ -14,8 +14,8 @@ export const getAllQuizzes = async () => {
 
     const currentUser = await getCurrentUser();
     currentUser.id;
-    const results = await fetchResults();
-    results
+    const results = await getUserResults(currentUser.id);
+    console.log(results);
 
     const { data, error } = await supabase
         .from('quizzes')

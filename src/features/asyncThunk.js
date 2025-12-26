@@ -1,8 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createNewUser, retrieveSession, signInUser, signOutUser } from "../Supabase/auth.database";
-import { getCompletedQuizIds } from "../Supabase/quizes.database";
-import { getQuizQuestions } from "../Supabase/questions.database";
-import { checkQuizAttempt, getUserResults, saveQuizResult } from "../Supabase/results.database";
+import { checkQuizAttempt, createNewUser, signInUser, retrieveSession, getCompletedQuizIds, getQuizQuestions, saveQuizResult, getUserResults, signOutUser } from "../Supabase";
 
 // AUTH
 export const registerUser = createAsyncThunk(
