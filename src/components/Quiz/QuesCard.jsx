@@ -1,5 +1,4 @@
-import { ButtonComp } from "../index.js";
-import Option from "./option";
+import { ButtonComp, Option } from "../index.js";
 
 const QuesCard = () => {
   return (

@@ -6,6 +6,7 @@ import Layout from "./Layout.jsx";
 import QuizCard from "./Quiz/QuizCard.jsx";
 import { ButtonComp } from "./Button/Button.jsx";
 import { FormikInput } from "./Input/InputField.jsx";
+import Option from "./Quiz/option.jsx";
 
 export {
     Home,
@@ -15,5 +16,6 @@ export {
     QuizCard,
     FormikInput,
     ButtonComp,
+    Option,
     Layout
 }
