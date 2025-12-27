@@ -24,4 +24,4 @@ export const resultSlice = createSlice({
 })
 
 export const { addAttemptedQuizId, setScore, resetResult } = resultSlice.actions
-export default resultSlice;
+export default resultSlice.reducer;

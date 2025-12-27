@@ -32,4 +32,4 @@ export const questionSlice = createSlice({
 })
 
 export const { loadQuestions, selectAnswer, nextQuestion, resetQuiz } = questionSlice.actions
-export default questionSlice;
+export default questionSlice.reducer;
