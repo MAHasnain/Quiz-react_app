@@ -1,8 +1,11 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { ButtonComp, FormikInput } from "../../components";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../features/asyncThunk";
 
 const Register = () => {
+  const dispatch = useDispatch();
   return (
     <div style={{ padding: "20px", maxWidth: "500px", margin: "0 auto" }}>
       <h1>Sign Up</h1>
@@ -26,10 +29,8 @@ const Register = () => {
         })}
         onSubmit={(userData, { setSubmitting }) => {
           console.log("Submit", userData);
-          setTimeout(() => {
-            alert(JSON.stringify(userData, null, 2));
-            setSubmitting(false);
-          }, 500);
+          dispatch(registerUser(userData));
+          setSubmitting(false);
         }}
       >
         {({ isSubmitting, handleSubmit }) => (
@@ -42,7 +43,7 @@ const Register = () => {
 
             <FormikInput name="password" label="Password" type="password" />
 
-            <div style={{ marginTop: "16px" }}>
+            <div style={{ margin: "20px" }}>
               <ButtonComp
                 containedValue={isSubmitting ? "Submitting..." : "Submit"}
                 type="submit"

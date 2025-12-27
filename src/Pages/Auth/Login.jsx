@@ -1,8 +1,12 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { ButtonComp, FormikInput } from "../../components";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../features/asyncThunk";
 
 const Login = () => {
+
+  const dispatch = useDispatch()
   return (
     <div style={{ padding: "20px", maxWidth: "550px", margin: "0 auto" }}>
       <h1>Log in</h1>
@@ -22,10 +26,13 @@ const Login = () => {
         })}
         onSubmit={(userData, { setSubmitting }) => {
           console.log("Submit", userData);
-          setTimeout(() => {
-            alert(JSON.stringify(userData, null, 2));
+          
+          dispatch(loginUser(userData))
             setSubmitting(false);
-          }, 500);
+          // setTimeout(() => {
+          //   alert(JSON.stringify(userData, null, 2));
+            
+          // }, 500);
         }}
       >
         {({ isSubmitting, handleSubmit }) => (
