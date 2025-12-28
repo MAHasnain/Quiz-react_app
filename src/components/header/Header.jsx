@@ -177,7 +177,7 @@ const Header = () => {
                     height: 40,
                   }}
                 >
-                  {user.name.charAt(0).toUpperCase()}
+                  {user?.email.charAt(0).toUpperCase()}
                 </Avatar>
               </IconButton>
 

@@ -28,7 +28,7 @@ const Login = () => {
           console.log("Submit", userData);
           
           dispatch(loginUser(userData))
-            setSubmitting(false);
+          //   setSubmitting(false);
           // setTimeout(() => {
           //   alert(JSON.stringify(userData, null, 2));
             
@@ -43,7 +43,7 @@ const Login = () => {
 
             <div style={{ marginTop: "16px" }}>
               <ButtonComp
-                containedValue={isSubmitting ? "Submitting..." : "Submit"}
+                containedValue="Submit"
                 type="submit"
                 disabled={isSubmitting}
               />
