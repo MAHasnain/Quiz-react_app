@@ -2,7 +2,7 @@
 import { TextField } from "@mui/material";
 import { useField } from "formik";
 
-export const FormikInput = ({ label, ...props }) => {
+export const FormikInput = ({type, label, ...props }) => {
   const [field, meta] = useField(props);
   const showError = meta.touched && Boolean(meta.error);
 
@@ -10,6 +10,7 @@ export const FormikInput = ({ label, ...props }) => {
     <div>
       <TextField
         {...field}
+        type={type}
         label={label}
         error={showError}
         helperText={showError ? meta.error : ""}
