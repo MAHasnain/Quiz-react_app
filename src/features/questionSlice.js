@@ -7,7 +7,7 @@ const initialState = {
 }
 
 export const questionSlice = createSlice({
-    name: "quiz",
+    name: "questions",
     initialState,
     reducers: {
         loadQuestions: (state, action) => {

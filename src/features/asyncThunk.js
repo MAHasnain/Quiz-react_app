@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk(
 
 export const checkSession = createAsyncThunk(
     'auth/checkSession',
-    async ({ rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
         try {
 
             const session = await retrieveSession();
@@ -47,14 +47,14 @@ export const checkSession = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
     'auth/logoutUser',
-    async ({ rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
         try {
 
             const { error } = await signOutUser();
 
             if (error) {
                 console.log(error);
-                return error;
+                return rejectWithValue(error.message)
             }
 
             return true;

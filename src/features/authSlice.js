@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loginUser, logoutUser, registerUser } from "./asyncThunk";
 
 const initialState = {
     isAuthenticated: false,
@@ -12,15 +13,31 @@ export const authSlice = createSlice({
         register: (state, action) => {
             state.user = action.payload;
             state.isAuthenticated = true;
-         },
+        },
         login: (state, action) => {
             state.user = action.payload;
             state.isAuthenticated = true;
         },
-        logout: (state) => { 
+        logout: (state) => {
             state.user = null;
             state.isAuthenticated = true;
         }
+    },
+
+    extraReducers: (builder) => {
+        builder
+        .addCase(loginUser.fulfilled, (state, action) => {
+            state.user = action.payload.user;
+            state.isAuthenticated = true;
+        })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.user = action.payload.user;
+                state.isAuthenticated = true;
+            })
+            .addCase(logoutUser.fulfilled, (state) => {
+                state.user = null;
+                state.isAuthenticated = true;
+            })
     }
 })
 
