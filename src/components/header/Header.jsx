@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -17,31 +17,31 @@ import {
   Divider,
   useMediaQuery,
   useTheme,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Menu as MenuIcon,
   Close as CloseIcon,
   AccountCircle,
   Dashboard,
   Logout,
-} from '@mui/icons-material';
-import { useNavigate } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
+} from "@mui/icons-material";
+import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../../features/asyncThunk";
+import { persistor } from "../../store/store";
+import { ButtonComp } from "../Button/Button";
 // import { logout } from '../redux/slices/authSlice'; // Uncomment when you create authSlice
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Get user from Redux store (replace with your actual selector)
-  const user = useSelector((state) => state.auth?.user) || {
-    name: 'Guest User',
-    email: 'guest@example.com',
-  };
+  const { persistedReducer } = useSelector((state) => state);
+  const { user } = persistedReducer.auth;
 
   // Mobile drawer toggle
   const handleDrawerToggle = () => {
@@ -58,22 +58,23 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    // dispatch(logout()); // Uncomment when authSlice is ready
+    dispatch(logoutUser());
+    persistor.purge();
     handleMenuClose();
-    navigate('/login');
+    navigate("/login");
   };
 
   // Navigation items
   const navItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Dashboard', path: '/dashboard' }
+    { label: "Home", path: "/" },
+    { label: "Dashboard", path: "/dashboard" },
     // { label: 'About', path: '/about' },
   ];
 
   // Mobile Drawer Content
   const drawer = (
     <Box sx={{ width: 250, pt: 2 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 2, pb: 2 }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", px: 2, pb: 2 }}>
         <IconButton onClick={handleDrawerToggle}>
           <CloseIcon />
         </IconButton>
@@ -96,7 +97,7 @@ const Header = () => {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => navigate('/profile')}>
+          <ListItemButton onClick={() => navigate("/profile")}>
             <AccountCircle sx={{ mr: 2 }} />
             <ListItemText primary="Profile" />
           </ListItemButton>
@@ -131,12 +132,12 @@ const Header = () => {
           <Typography
             variant="h6"
             component="div"
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             sx={{
               flexGrow: isMobile ? 1 : 0,
-              fontWeight: 'bold',
+              fontWeight: "bold",
               mr: 4,
-              cursor: 'pointer',
+              cursor: "pointer",
             }}
           >
             Quizora
@@ -144,15 +145,15 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           {!isMobile && (
-            <Box sx={{ flexGrow: 1, display: 'flex', gap: 2 }}>
+            <Box sx={{ flexGrow: 1, display: "flex", gap: 2 }}>
               {navItems.map((item) => (
                 <Button
                   key={item.label}
                   color="inherit"
                   onClick={() => navigate(item.path)}
                   sx={{
-                    '&:hover': {
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
                     },
                   }}
                 >
@@ -163,58 +164,72 @@ const Header = () => {
           )}
 
           {/* User Profile Section */}
-          {!isMobile && (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <IconButton
-                color="inherit"
-                onClick={handleMenuOpen}
-                sx={{ p: 0 }}
-              >
-                <Avatar
-                  sx={{
-                    bgcolor: 'secondary.main',
-                    width: 40,
-                    height: 40,
+          {persistedReducer?.auth?.isAuthenticated ? (
+            !isMobile && (
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                <IconButton
+                  color="inherit"
+                  onClick={handleMenuOpen}
+                  sx={{ p: 0 }}
+                >
+                  <Avatar
+                    sx={{
+                      bgcolor: "secondary.main",
+                      width: 40,
+                      height: 40,
+                    }}
+                  >
+                    {user?.email.charAt(0).toUpperCase()}
+                  </Avatar>
+                </IconButton>
+
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                 >
-                  {user?.email.charAt(0).toUpperCase()}
-                </Avatar>
-              </IconButton>
-
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-              >
-                <Box sx={{ px: 2, py: 1 }}>
-                  <Typography variant="subtitle1" fontWeight="bold">
-                    {user.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {user.email}
-                  </Typography>
-                </Box>
-                <Divider />
-                <MenuItem onClick={() => { navigate('/dashboard'); handleMenuClose(); }}>
-                  <Dashboard sx={{ mr: 2 }} /> Dashboard
-                </MenuItem>
-                <MenuItem onClick={() => { navigate('/profile'); handleMenuClose(); }}>
-                  <AccountCircle sx={{ mr: 2 }} /> Profile
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={handleLogout}>
-                  <Logout sx={{ mr: 2 }} /> Logout
-                </MenuItem>
-              </Menu>
-            </Box>
+                  <Box sx={{ px: 2, py: 1 }}>
+                    <Typography variant="subtitle1" fontWeight="bold">
+                      {user?.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {user?.email}
+                    </Typography>
+                  </Box>
+                  <Divider />
+                  <MenuItem
+                    onClick={() => {
+                      navigate("/dashboard");
+                      handleMenuClose();
+                    }}
+                  >
+                    <Dashboard sx={{ mr: 2 }} /> Dashboard
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      navigate("/profile");
+                      handleMenuClose();
+                    }}
+                  >
+                    <AccountCircle sx={{ mr: 2 }} /> Profile
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem onClick={handleLogout}>
+                    <Logout sx={{ mr: 2 }} /> Logout
+                  </MenuItem>
+                </Menu>
+              </Box>
+            )
+          ) : (
+            <ButtonComp containedValue={"Login"} onClick={() => navigate("/login")} />
           )}
         </Toolbar>
       </AppBar>

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { checkQuizAttempt, createNewUser, signInUser, retrieveSession, getCompletedQuizIds, getQuizQuestions, saveQuizResult, getUserResults, signOutUser } from "../Supabase";
+import { checkQuizAttempt, createNewUser, signInUser, retrieveSession, getCompletedQuizIds, getQuizQuestions, saveQuizResult, getUserResults, signOutUser, getAllQuizzes } from "../Supabase";
 
 // AUTH
 export const registerUser = createAsyncThunk(
@@ -93,6 +93,20 @@ export const fetchAttemptedQuiz = createAsyncThunk(
             console.log(fetchCompletedQuiz);
             return fetchCompletedQuiz;
 
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const fetchAllQuizzes = createAsyncThunk(
+    "quiz/fetchAllQuizzes",
+    async (_, { rejectWithValue }) => {
+        try {
+            const allQuizzes = await getAllQuizzes();
+            console.log(allQuizzes);
+            return allQuizzes;
         } catch (error) {
             console.log(error);
             return rejectWithValue(error.message);

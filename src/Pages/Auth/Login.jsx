@@ -3,10 +3,11 @@ import * as Yup from "yup";
 import { ButtonComp, FormikInput } from "../../components";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/asyncThunk";
+import { useNavigate } from "react-router";
 
 const Login = () => {
-
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <div style={{ padding: "20px", maxWidth: "550px", margin: "0 auto" }}>
       <h1>Log in</h1>
@@ -26,12 +27,13 @@ const Login = () => {
         })}
         onSubmit={(userData, { setSubmitting }) => {
           console.log("Submit", userData);
-          
-          dispatch(loginUser(userData))
-          //   setSubmitting(false);
+
+          dispatch(loginUser(userData));
+          setSubmitting(false);
+          navigate("/dashboard");
           // setTimeout(() => {
           //   alert(JSON.stringify(userData, null, 2));
-            
+
           // }, 500);
         }}
       >
