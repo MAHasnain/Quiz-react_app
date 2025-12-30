@@ -1,59 +1,144 @@
 import { useNavigate } from "react-router";
-import { ButtonComp } from "../index.js";
+import { useSelector } from "react-redux";
+import { Box, Typography, Button, Container } from "@mui/material";
 
 const Home = () => {
   const navigate = useNavigate();
-  const goToRegister = () => {
-    navigate("/login");
-  };
-  const goToLogin = () => {
-    navigate("/register");
-  };
+  const { auth } = useSelector((state) => state.persistedReducer);
 
   return (
-    <>
-      <section>
-        <h1>Master Your Skills with Interactive Quizzes</h1>
+    <Box sx={{ bgcolor: "#f9fafb", minHeight: "100vh" }}>
+      {/* HERO SECTION */}
+      <Box
+        sx={{
+          py: 10,
+          textAlign: "center",
+          background: "linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)",
+          color: "#fff",
+        }}
+      >
+        <Typography variant="h3" fontWeight="bold" gutterBottom>
+          Learn Smarter with Interactive Quizzes
+        </Typography>
 
-        <p>
-          QuizMaster helps you learn, practice, and test your knowledge through
-          smart quizzes designed to challenge you.
-        </p>
+        <Typography variant="h6" sx={{ maxWidth: 600, mx: "auto", mb: 4 }}>
+          Quizora helps you practice concepts, test knowledge, and track your
+          progress — all in one place.
+        </Typography>
 
-        <button>Start Quiz</button>
-        <button>Go to Dashboard</button>
-      </section>
+        {!auth.isAuthenticated ? (
+          <>
+            <Button
+              variant="contained"
+              size="large"
+              sx={{ mr: 2, bgcolor: "#fff", color: "#4f46e5" }}
+              onClick={() => navigate("/register")}
+            >
+              Get Started
+            </Button>
 
-      <section>
-        <h2>Why QuizMaster?</h2>
+            <Button
+              variant="outlined"
+              size="large"
+              sx={{ color: "#fff", borderColor: "#fff" }}
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </Button>
+          </>
+        ) : (
+          <Button
+            variant="contained"
+            size="large"
+            sx={{ bgcolor: "#22c55e" }}
+            onClick={() => navigate("/dashboard")}
+          >
+            Go to Dashboard
+          </Button>
+        )}
+      </Box>
 
-        <ul>
-          <li>🧠 Smart MCQ based quizzes</li>
-          <li>📊 Real time score calculation</li>
-          <li>✅ One time quiz attempt system</li>
-          <li>📱 Fully responsive design</li>
-        </ul>
-      </section>
+      {/* WHY SECTION */}
+      <Container sx={{ py: 8 }}>
+        <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
+          Why Quizora?
+        </Typography>
 
-      <section>
-        <h2>How It Works</h2>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { md: "repeat(2, 1fr)" },
+            gap: 4,
+          }}
+        >
+          {[
+            "🧠 Smart MCQ‑based quizzes",
+            "📊 Real‑time score & result tracking",
+            "✅ One‑attempt quiz system",
+            "📱 Fully responsive experience",
+          ].map((item, i) => (
+            <Box
+              key={i}
+              sx={{
+                p: 3,
+                bgcolor: "#fff",
+                borderRadius: 2,
+                boxShadow: 2,
+              }}
+            >
+              <Typography variant="h6">{item}</Typography>
+            </Box>
+          ))}
+        </Box>
+      </Container>
 
-        <ol>
-          <li>
-            <ButtonComp onClick={goToRegister} containedValue={"Login"} />
-            <ButtonComp onClick={goToLogin} containedValue={"Register"} />
-          </li>
-          <li>Select a quiz</li>
-          <li>Answer questions</li>
-          <li>Get your result instantly</li>
-        </ol>
-      </section>
+      {/* HOW IT WORKS */}
+      <Box sx={{ bgcolor: "#f3f4f6", py: 8 }}>
+        <Container>
+          <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
+            How It Works
+          </Typography>
 
-      <section>
-        <h2>Ready to Test Your Knowledge?</h2>
-        <ButtonComp containedValue={"Get Started"}></ButtonComp>
-      </section>
-    </>
+          <Box
+            component="ol"
+            sx={{
+              maxWidth: 500,
+              mx: "auto",
+              lineHeight: 2,
+              fontSize: "18px",
+            }}
+          >
+            <li>Create your free account</li>
+            <li>Select a quiz</li>
+            <li>Answer questions</li>
+            <li>View your result instantly</li>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* CTA */}
+      <Box sx={{ py: 8, textAlign: "center" }}>
+        <Typography variant="h4" fontWeight="bold" mb={2}>
+          Ready to Test Your Knowledge?
+        </Typography>
+
+        <Typography mb={3}>
+          Start learning today and improve step by step.
+        </Typography>
+
+        <Button
+          variant="contained"
+          size="large"
+          onClick={() =>
+            auth.isAuthenticated
+              ? navigate("/dashboard")
+              : navigate("/register")
+          }
+        >
+          Get Started
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
