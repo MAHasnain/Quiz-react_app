@@ -61,7 +61,7 @@ const Header = () => {
     dispatch(logoutUser());
     persistor.purge();
     handleMenuClose();
-    navigate("/login");
+    // navigate("/login");
   };
 
   // Navigation items

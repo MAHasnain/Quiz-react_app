@@ -2,20 +2,18 @@
 import { TextField } from "@mui/material";
 import { useField } from "formik";
 
-export const FormikInput = ({type, label, ...props }) => {
+export const FormikInput = ({ type, label, ...props }) => {
   const [field, meta] = useField(props);
   const showError = meta.touched && Boolean(meta.error);
 
   return (
-    <div>
-      <TextField
-        {...field}
-        type={type}
-        label={label}
-        error={showError}
-        helperText={showError ? meta.error : ""}
-      />
-    </div>
+    <TextField style={{margin: 3 }}
+      {...field}
+      type={type}
+      label={label}
+      error={showError}
+      helperText={showError ? meta.error : ""}
+    fullWidth/>
   );
 };
 

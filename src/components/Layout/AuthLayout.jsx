@@ -34,9 +34,6 @@ const AuthLayout = () => {
           <Box
             sx={{
               p: 4,
-              backgroundColor: "#fff",
-              borderRadius: 2,
-              boxShadow: 2,
             }}
           >
             <Outlet />
