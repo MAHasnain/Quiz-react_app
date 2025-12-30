@@ -20,7 +20,7 @@ export const authSlice = createSlice({
         },
         logout: (state) => {
             state.user = null;
-            state.isAuthenticated = true;
+            state.isAuthenticated = false;
         }
     },
 
@@ -36,7 +36,7 @@ export const authSlice = createSlice({
             })
             .addCase(logoutUser.fulfilled, (state) => {
                 state.user = null;
-                state.isAuthenticated = true;
+                state.isAuthenticated = false;
             })
     }
 })

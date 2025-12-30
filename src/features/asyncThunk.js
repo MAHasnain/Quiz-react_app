@@ -50,11 +50,11 @@ export const logoutUser = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
 
-            const { error } = await signOutUser();
+            const res = await signOutUser();
 
-            if (error) {
-                console.log(error);
-                return rejectWithValue(error.message)
+            if (res?.error) {
+                console.log(res?.error);
+                return rejectWithValue(res.error.message)
             }
 
             return true;

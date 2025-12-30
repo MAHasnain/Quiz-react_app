@@ -88,7 +88,7 @@ const signOutUser = async () => {
 
     if (error) {
         console.error(error);
-        return error;
+        return { error };
     }
 
     // console.log(data);
