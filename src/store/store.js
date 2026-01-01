@@ -3,6 +3,7 @@ import { questionReducer, resultReducer } from "../features";
 import authReducer from "../features/authSlice.js";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/es/storage";
+import quizReducer from "../features/quizSlice.js";
 
 const persistConfig = {
     key: "root",
@@ -23,7 +24,8 @@ export const store = configureStore({
     reducer: {
         persistedReducer,
         question: questionReducer,
-        result: resultReducer
+        result: resultReducer,
+        quiz: quizReducer
     },
 
     middleware: (defaultMiddleware) =>

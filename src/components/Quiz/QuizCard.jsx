@@ -1,8 +1,15 @@
 import { Box, Card, CardActions, CardContent, Typography } from "@mui/material";
 import React from "react";
 import { ButtonComp } from "../Button/Button";
+import { useNavigate } from "react-router";
 
 const QuizCard = ({ quiz_id, quizName, quiz_description, total_questions }) => {
+  const navigate = useNavigate()
+
+const handleQuizStart = () => {
+  navigate(`/quiz/${quiz_id}`)
+}
+
   return (
     <>
       <Box id={quiz_id}>
@@ -34,7 +41,7 @@ const QuizCard = ({ quiz_id, quizName, quiz_description, total_questions }) => {
               justifyContent: "center",
             }}
           >
-            <ButtonComp containedValue="Start Quiz" />
+            <ButtonComp containedValue="Start Quiz" onClick={handleQuizStart} />
           </CardActions>
         </Card>
       </Box>

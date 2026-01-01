@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchQuestionsByQuizId } from "./asyncThunk";
 
 const initialState = {
     questions: [],
@@ -28,6 +29,13 @@ export const questionSlice = createSlice({
             state.currentIndex = 0
         }
         // resetQuiz: () => initialState
+    },
+
+    extraReducers: (builder) => {
+        builder
+        .addCase(fetchQuestionsByQuizId.fulfilled, (state, action) => {
+            state.questions = action.payload;
+        })
     }
 })
 

@@ -12,10 +12,11 @@ const supabase = createClient(VITE_SUPABASE_URL, VITE_SUPABASE_KEY);
 // QUIZZES DB methods
 export const getAllQuizzes = async () => {
 
-    const currentUser = await getCurrentUser();
-    currentUser.id;
-    const results = await getUserResults(currentUser.id);
-    console.log(results);
+    // const currentUser = await getCurrentUser();
+    // console.log(currentUser.id);
+    
+    // const results = await getUserResults(currentUser.id);
+    // console.log(results);
 
     const { data, error } = await supabase
         .from('quizzes')
