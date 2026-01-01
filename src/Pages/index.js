@@ -1,14 +1,14 @@
 import Login from "../Pages/Auth/Login.jsx";
 import Register from "../Pages/Auth/Register.jsx";
 import Dashboard from "../Pages/Dashboard/Dashboard.jsx";
-import Question from "../components/Quiz/QuesCard.jsx";
-import Result from "./Result/Result.jsx";
+import Quiz from "../Pages/Quiz/Quiz.jsx";
+import Result from "../Pages/Result/Result.jsx";
 
 
 export {
     Login,
     Register,
     Dashboard,
-    Question,
+    Quiz,
     Result
 }
