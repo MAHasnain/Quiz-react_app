@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { ButtonComp, Option } from "../index.js";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { nextQuestion } from "../../features/index.js";
 useSelector;
 const QuesCard = ({ currentIndex, question, options }) => {
@@ -8,18 +8,13 @@ const QuesCard = ({ currentIndex, question, options }) => {
   // console.log(questions);
   const dispatch = useDispatch();
   return (
-    <>
-      <Box>
-        <p>
-          Q{currentIndex + 1}. {question}
-        </p>
-        {
-          // questions.map(ques => <Option options={ques?.options} />)
-        }
-        <Option options={options} />
-        
-      </Box>
-    </>
+    <Box sx={{ mt: 2 }}>
+      <Typography variant="h6" sx={{ mb: 2 }}>
+        Q{currentIndex + 1}. {question}
+      </Typography>
+
+      <Option options={options} />
+    </Box>
   );
 };
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchQuestionsByQuizId } from "../../features/asyncThunk";
 import { nextQuestion } from "../../features";
 import { calculateScore } from "../../features/resultSlice";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
 const Quiz = () => {
   const params = useParams();
@@ -54,21 +55,40 @@ const Quiz = () => {
 
   return (
     <>
-      <div>
-        <QuesCard
-          currentIndex={currentIndex}
-          options={question?.options}
-          question={question?.question}
-        />
-        {currentIndex < questions.length - 1 ? (
-          <ButtonComp
-            containedValue="Next Question"
-            onClick={() => dispatch(nextQuestion())}
-          />
-        ) : (
-          <ButtonComp containedValue="Submit Quiz" onClick={handleSubmitQuiz} />
-        )}
-      </div>
+      <Box
+        sx={{
+          minHeight: "70vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          // backgroundColor: "#f5f7fb",
+        }}
+      >
+        <Card sx={{ minWidth: "40vw", p: 3 }}>
+          <CardContent>
+
+            <QuesCard
+              currentIndex={currentIndex}
+              options={question?.options}
+              question={question?.question}
+            />
+
+            <Box sx={{ mt: 4, textAlign: "center" }}>
+              {currentIndex < questions.length - 1 ? (
+                <ButtonComp
+                  containedValue="Next Question"
+                  onClick={() => dispatch(nextQuestion())}
+                />
+              ) : (
+                <ButtonComp
+                  containedValue="Submit Quiz"
+                  onClick={handleSubmitQuiz}
+                />
+              )}
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
     </>
   );
 };
