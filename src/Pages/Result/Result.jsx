@@ -1,12 +1,20 @@
 import { Box, Card, CardContent, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { ButtonComp } from "../../components";
+import { resetQuiz, resetResult } from "../../features";
 
 const Result = () => {
   const navigate = useNavigate();
   const { score } = useSelector((state) => state.result);
   const { questions } = useSelector((state) => state.question);
+  const dispatch = useDispatch();
+
+  const handleGoToHome = () => {
+    dispatch(resetResult());
+    dispatch(resetQuiz());
+    navigate("/");
+  };
 
   return (
     <Box
@@ -42,7 +50,7 @@ const Result = () => {
             containedValue="Go to Home"
             variant="contained"
             sx={{ mt: 3 }}
-            onClick={() => navigate("/")}
+            onClick={handleGoToHome}
           />
         </CardContent>
       </Card>

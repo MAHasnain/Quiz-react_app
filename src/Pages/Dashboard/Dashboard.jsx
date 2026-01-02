@@ -43,7 +43,7 @@ const Dashboard = () => {
         }}
       >
         {quizzes.length === 0 ? (
-          <p>No quizzes available</p>
+          <p>Loading ...</p>
         ) : (
           quizzes.map((quiz) => (
             <QuizCard
