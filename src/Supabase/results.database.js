@@ -10,7 +10,7 @@ const supabase = createClient(VITE_SUPABASE_URL, VITE_SUPABASE_KEY);
 export const getUserResults = async (userId) => {
     const { data, error } = await supabase
         .from('results')
-        .select(userId)
+        .select()
 
     if (error) {
         console.error(error);

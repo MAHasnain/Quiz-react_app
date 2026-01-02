@@ -19,9 +19,23 @@ export const resultSlice = createSlice({
                 state.attemptedQuizIds.push(quizId)
             }
         },
+        calculateScore: (state, action) => {
+            const { questions, selectedAnswers } = action.payload;
+
+            let score = 0;
+
+            questions?.forEach((ques, index) => {
+                if (selectedAnswers[index] === ques.correct_answer) {
+                    score += 1;
+                }
+            });
+
+            state.score = score;
+            console.log(state.score);
+        },
         resetResult: () => initialState
     }
 })
 
-export const { addAttemptedQuizId, setScore, resetResult } = resultSlice.actions
+export const { addAttemptedQuizId, setScore, resetResult, calculateScore } = resultSlice.actions
 export default resultSlice.reducer;
