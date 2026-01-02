@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { Box, Typography, Button, Container } from "@mui/material";
+import { ButtonComp } from "../Button/Button";
 
 const Home = () => {
   const navigate = useNavigate();
   const { auth } = useSelector((state) => state.persistedReducer);
 
   return (
-    <Box sx={{ bgcolor: "#f9fafb", minHeight: "100vh" }}>
+    <Box sx={{ bgcolor: "#f9fafb", minHeight: "100vh", width: "100%" }}>
       {/* HERO SECTION */}
       <Box
         sx={{
@@ -27,34 +28,30 @@ const Home = () => {
         </Typography>
 
         {!auth.isAuthenticated ? (
-          <>
-            <Button
-              variant="contained"
+          <div className="flex justify-center">
+            <ButtonComp
+              containedValue="Get Started"
               size="large"
               sx={{ mr: 2, bgcolor: "#fff", color: "#4f46e5" }}
               onClick={() => navigate("/register")}
-            >
-              Get Started
-            </Button>
+            />
 
-            <Button
+            <ButtonComp
+              containedValue="Login"
               variant="outlined"
               size="large"
               sx={{ color: "#fff", borderColor: "#fff" }}
               onClick={() => navigate("/login")}
-            >
-              Login
-            </Button>
-          </>
+            />
+          </div>
         ) : (
-          <Button
-            variant="contained"
+          <ButtonComp
+            containedValue="Go to Dashboard"
+            style={{ mt: 3}}
             size="large"
             sx={{ bgcolor: "#22c55e" }}
             onClick={() => navigate("/dashboard")}
-          >
-            Go to Dashboard
-          </Button>
+          />
         )}
       </Box>
 
@@ -126,17 +123,15 @@ const Home = () => {
           Start learning today and improve step by step.
         </Typography>
 
-        <Button
-          variant="contained"
+        <ButtonComp
+          containedValue="Get Started"
           size="large"
           onClick={() =>
             auth.isAuthenticated
               ? navigate("/dashboard")
               : navigate("/register")
           }
-        >
-          Get Started
-        </Button>
+        />
       </Box>
     </Box>
   );

@@ -11,7 +11,7 @@ import { Box } from "@mui/material";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const { score } = useSelector((state) => state.result);
   // const { user, isAuthenticated } = useSelector((state) => state.persistedReducer.auth);
   // const fetchQuestions = useSelector(() => );
