@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { submitQuizResult } from "./asyncThunk";
 
 const initialState = {
     score: 0,
@@ -34,6 +35,11 @@ export const resultSlice = createSlice({
             console.log(state.score);
         },
         resetResult: () => initialState
+    },
+    extraReducers: (builder) => {
+        builder.addCase(submitQuizResult.fulfilled, (state, action) => {
+            state.score = action.payload
+        })
     }
 })
 
