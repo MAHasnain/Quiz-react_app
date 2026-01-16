@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { ButtonComp, FormikInput } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../features/asyncThunk";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Box, Typography } from "@mui/material";
 // import { useEffect } from "react";
 
@@ -92,7 +92,7 @@ const Login = () => {
           </Formik>
         </Box>
          <Typography variant="body2" textAlign="center" mt={3} color="gray">
-          New to Quizora? <a href="/register" className="text-blue-700 bold"> Sign up</a>
+          New to Quizora? <Link to="/register" className="text-blue-700 bold"> Sign up</Link>
         </Typography>
       </Box>
     </Box>

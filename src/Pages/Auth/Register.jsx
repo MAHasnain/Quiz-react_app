@@ -4,6 +4,7 @@ import { ButtonComp, FormikInput } from "../../components";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../features/asyncThunk";
 import { Box, Typography } from "@mui/material";
+import { Link } from "react-router";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -90,7 +91,10 @@ const Register = () => {
           </Formik>
         </Box>
         <Typography variant="body2" textAlign="center" mt={1} color="gray">
-          Already have an account? <a href="/login"  className="text-blue-700 bold">Log in</a>
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-700 bold">
+            Log in
+          </Link>
         </Typography>
       </Box>
     </Box>
