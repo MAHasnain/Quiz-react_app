@@ -1,6 +1,6 @@
 // DB methods 
 
-import config from "../Config/config";
+import config from "../Config/config.js";
 const { VITE_SUPABASE_URL, VITE_SUPABASE_KEY } = config;
 
 import { createClient } from '@supabase/supabase-js'
